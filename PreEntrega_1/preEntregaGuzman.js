@@ -194,13 +194,12 @@ function procesoCompra() {
 
     //Mostramos datos por consola
     console.log(`${nombreUsuario} compró unas zapatillas ${marcaBuscada} ${modeloBuscado} en el talle ${talleBuscado} color ${colorBuscado}`);
-    console.log(`Este es el carro de compras de ${nombreUsuario}`);
+    console.log(`Este es el carro de compras de ${nombreUsuario}:`);
     console.table(carroDeCompras);
 
     //Pregunta al usuario si quiere seguir comprando
     seguirComprando();
 }
-
 
 
 //PROCESO DE COMPRA
