@@ -1,0 +1,107 @@
+#contenedorTienda {
+    width: 90%;
+    max-width: 1366px;
+    margin: 0 auto;
+    margin-top: 50px;
+    text-align: center;
+}
+
+#contenedorTienda h1 {
+    text-align: center;
+}
+
+.contenedorProductos {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 1%;
+}
+
+.bloqueProducto {
+    display: block;
+    width: 24%;
+    text-align: center;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.productoMarca {
+    display: block;
+    font-weight: 900;
+    padding-top: 5px;
+    font-size: 18px;
+}
+
+.productoSubTitulo {
+    display: block;
+}
+
+.productoEspecificaciones {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.productoTalle {
+    display: block;
+}
+
+.productoColor {
+    display: block;
+}
+
+.productoFoto {
+    display: block;
+    background-color: #ebeef0;
+}
+
+.productoFoto img {
+    width: 100%;
+}
+
+.productoComprar {
+    display: inline-block;
+}
+
+#headerUsuario {
+    background-color: #606060;
+    width: 100%;
+}
+
+.headerUsuario__contenido {
+    display: flex;
+    width: 90%;
+    max-width: 1080px;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.nombreUsuario,
+.datosCarro {
+    display: inline-block;
+    padding: 10px 0px;
+    font-size: 14px;
+    color: white;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.btRun-large {
+    border: 0px;
+}
+
+#tituloCarrito {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .contenedorProductos {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
