@@ -37,6 +37,8 @@ class ListadoProductos {
 }
 
 
+//Variables que genera el contenedor de productos
+let contenidoProductos = document.getElementsByClassName("contenedorProductos");
 
 // DECLARACIÓN DE ARRAYS
 
@@ -118,8 +120,6 @@ function mostrarSinStock() {
     }
 }
 
-
-
 // Funciones del proceso de compra
 //Función para validar la marca ingresada
 function validarMarcaIngresada(marcaIngresada) {
@@ -164,6 +164,7 @@ function buscarModelo(marcaBuscada) {
     }
 }
 
+//Función para buscar talle
 function buscarTalle(talleIngresado) {
     while ((talleIngresado < 40) || (talleIngresado > 42)) {
         talleIngresado = parseFloat(prompt("¿Qué talle estás buscando?\nRecuerda que solo disponemos del talle 40 al 42 momentaneamente"))
@@ -171,6 +172,7 @@ function buscarTalle(talleIngresado) {
     return talleBuscado = talleIngresado
 }
 
+//Función par apreguntar si se quiere seguir comprando
 function seguirComprando() {
     let respuesta = prompt("¿Quieres seguir comprando?")
     if (respuesta == "si") {
@@ -207,26 +209,12 @@ function procesoCompra() {
 
 
 
-
-function actualizarBloqueProductos() {
-    let bloqueProducto = document.querySelectorAll(".bloqueProducto");
-    for (let i = 0; bloqueProducto.length > i; i++) {
-        bloqueProducto[i].remove();
-    }
-
-}
-
-let contenidoProductos = document.getElementsByClassName("contenedorProductos");
-
+//Función para mostrar los productos disponibles en el sitio
 function mostrarProductos() {
 
     catalogoDisponible.forEach((catalogoDisponible) => {
-
         let divProducto = document.createElement('div');
         divProducto.classList.add("bloqueProducto");
-        // divMarca = `${catalogoDisponible.codProducto}`
-        // divProducto.classList.add(divMarca);
-
         divProducto.innerHTML = `
         <span class="productoFoto"><img src="images/${catalogoDisponible.marca.charAt(0)}${catalogoDisponible.modelo.charAt(0)}${catalogoDisponible.color.charAt(0)}.png"></span>
         <span class="productoMarca">${catalogoDisponible.marca} ${catalogoDisponible.modelo} </span>
@@ -243,15 +231,15 @@ function mostrarProductos() {
     })
 }
 
-
+//Función para actualizar el número de productos en el carrito
 function actualizarContadorCarro() {
     divCarro.innerHTML = `Productos en el carrito: ${carroDeCompras.length}`;
 }
 
+//Función que genera el contenido del encabezado
 function infoEncabezado() {
 
     let contenedor = document.getElementsByClassName("headerUsuario__contenido")
-
 
     let contenidoEncabezado = document.createElement('div');
     contenedor[0].append(contenidoEncabezado)
@@ -271,8 +259,7 @@ function infoEncabezado() {
 
 }
 
-mostrarProductos()
-
+//Función que muestra en la página el lisatdo de productos comprados
 function mostrarListado() {
     let listadoDeCompras = document.getElementsByClassName("listadoDeCompras");
     let productoComprado = document.createElement('div')
@@ -286,24 +273,25 @@ function mostrarListado() {
 
 
 }
+//Función para borrar el bloque de productos y poder actualizarlo
+function actualizarBloqueProductos() {
+    let bloqueProducto = document.querySelectorAll(".bloqueProducto");
+    for (let i = 0; bloqueProducto.length > i; i++) {
+        bloqueProducto[i].remove();
+    }
+
+}
+mostrarProductos()
 
 
 
-// console.log(`${nombreUsuario} compró unas zapatillas ${marcaBuscada} ${modeloBuscado} en el talle ${talleBuscado} color ${colorBuscado}`);
-// console.log(`Este es el carro de compras de ${nombreUsuario}:`);
-// console.table(carroDeCompras);
 
 
-// PROCESO DE COMPRA
-// Pedimos nombre del usuario
-let nombreUsuario = "Alvaro"
-    // let nombreUsuario = prompt("Bienvenido a la Tienda Online de RunClub \n¿Cuál es tu nombre?");
-infoEncabezado()
 
-// Proceso de compra
-// document.addEventListener("DOMContentLoaded", () => {
-//     procesoCompra();
-// })
-
+// Botón que inicia el proceso de compra
 let boton = document.getElementById("btnComprar")
 boton.addEventListener("click", procesoCompra);
+
+// PROCESO DE COMPRA
+let nombreUsuario = prompt("Bienvenido a la Tienda Online de RunClub \n¿Cuál es tu nombre?");
+infoEncabezado()
