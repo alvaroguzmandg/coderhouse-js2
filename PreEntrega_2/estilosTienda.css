@@ -148,6 +148,11 @@
         display: block;
     }
     
+    .carrito__productoTexto {
+        display: flex;
+        gap: 20px;
+    }
+    
     .carrito__productoTexto--quitar:hover {
         color: #FF5500;
     }
