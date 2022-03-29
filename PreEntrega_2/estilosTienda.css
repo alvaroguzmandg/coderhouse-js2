@@ -140,7 +140,7 @@
         color: #FF5500;
     }
     
-    .carrito__carreraTexto--quitar {
+    .carrito__productoTexto--quitar {
         color: #8d8d8d;
         font-size: 8px;
         font-style: italic;
@@ -148,7 +148,7 @@
         display: block;
     }
     
-    .carrito__carreraTexto--quitar:hover {
+    .carrito__productoTexto--quitar:hover {
         color: #FF5500;
     }
     

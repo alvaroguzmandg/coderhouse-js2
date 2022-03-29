@@ -139,13 +139,13 @@ function listadoCarrito() {
 
             // String HTML de la vista del producto en el carrito
             htmlString += `<li id="productoAgregado${posicion}">
-                    <span class="carrito__carreraTexto">
+                    <span class="carrito__productoTexto">
                         <span class="carrito__productoImagen"><img src="images/${imagen}.png"></span>
-                        <span class="carrito__carreraTexto--titulo">${marca} ${modelo}
+                        <span class="carrito__productoTexto--titulo">${marca} ${modelo}
                         <br>
-                        <span class="carrito__carreraTexto--titulo">Talle: ${talle}
+                        <span class="carrito__productoTexto--titulo">Talle: ${talle}
                         <br>
-                        <span id="${posicion}" class="carrito__carreraTexto--quitar">Eliminar</span></span>
+                        <span id="${posicion}" class="carrito__productoTexto--quitar">Eliminar</span></span>
                     </span>
                     
                     </li>
@@ -175,7 +175,7 @@ botonCarrito.onmouseout = () => {
 
 //Función para quitar productos del carrito
 function quitarProducto(posicion) {
-    let borrarProducto = document.getElementsByClassName("carrito__carreraTexto--quitar");
+    let borrarProducto = document.getElementsByClassName("carrito__productoTexto--quitar");
     for (const boton of borrarProducto) {
         boton.onclick = () => {
             // let id = boton.getAttribute("id");
