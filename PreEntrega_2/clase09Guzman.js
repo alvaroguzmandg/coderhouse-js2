@@ -71,31 +71,73 @@ listadoProductos.push(new ListadoProductos("Asics", "Nimbus 22", [41, 43, 44], "
 listadoProductos.push(new ListadoProductos("Asics", "Tri Noosa", [40, 42, 43], "Verde", "Hombre"));
 
 
+//Creación de Array con carrito Almacenado
 let carroDeComprasAlmacenado = JSON.parse(localStorage.getItem('carritoAlmacenado'))
 
+//Si la declaración del array con carrito Almacenado es nula, declara el carro de compras vacío y sino, crea el array de carro de compras concatenando el array de productos almacenados en el carrito
 carroDeComprasAlmacenado === null ? carroDeCompras = [] : carroDeCompras = [].concat(carroDeComprasAlmacenado)
 
+//Variables que genera el contenedor de productos
+let contenidoProductos = document.getElementsByClassName("contenedorProductos");
 
+
+
+
+// DECLARACIÓN DE FUNCIONES
+
+//Función que genera el contenido del encabezado
+function infoEncabezado(nombreUsuario) {
+
+    let contenidoEncabezado = document.getElementsByClassName("datosUsuario")
+
+    spanNombre = document.createElement('span');
+    spanNombre.classList.add("nombreUsuario")
+    spanNombre.innerHTML = `¡Hola ${nombreUsuario}!` + ` / <div id="btnCerrarUsuario">Cerrar Sesión</div>`;
+
+    contenidoEncabezado[0].appendChild(spanNombre);
+
+
+    divCarro = document.getElementsByClassName("datosCarro");
+
+    divContenidoCarrito = document.createElement('span');
+    divContenidoCarrito.classList.add("accesoCarrito")
+
+    let contenidoCarrito = document.getElementsByClassName("contenedorCarrito")
+    contenidoCarrito[0].appendChild(divContenidoCarrito)
+    actualizarContadorCarro();
+}
+
+//Función de cerrar sesión
+function cerrarSesion() {
+    localStorage.clear();
+    location.reload();
+}
+
+
+//Lista los productos en el carrito
 function listadoCarrito() {
     let posicion = 0;
-
-    //Revisa carreras Almacenadas en LocalStorage y las carga al Carrito
+    //Revisa productos Almacenados en LocalStorage y las carga al Carrito
     if (localStorage.getItem('carritoAlmacenado') != null) {
         let contenedor = document.getElementById("productosEnCarrito");
         contenedor.innerHTML = " "
         htmlString = `
         <span class="listadoCarrito">
         <span class="listadoCarrito--titulo">LISTADO DE PRODUCTOS</span>`
+
         for (let index = 0; index < carroDeCompras.length; index++) {
 
-            let marca = carroDeCompras[index].marca
-            let modelo = carroDeCompras[index].modelo
-            let talle = carroDeCompras[index].talle
+            let marca = carroDeCompras[index].marca;
+            let modelo = carroDeCompras[index].modelo;
+            let talle = carroDeCompras[index].talle;
+            let posicion = carroDeCompras.indexOf(carroDeCompras[index]);
+            let imagen = carroDeCompras[index].imagen;
+
+            // Estas variables serán utilizadas en próximas actualizaciones
             let cantidad = carroDeCompras[index].cantidad
             let codProducto = carroDeCompras[index].codProducto
-            let posicion = carroDeCompras.indexOf(carroDeCompras[index])
-            let imagen = carroDeCompras[index].imagen
 
+            // String HTML de la vista del producto en el carrito
             htmlString += `<li id="productoAgregado${posicion}">
                     <span class="carrito__carreraTexto">
                         <span class="carrito__productoImagen"><img src="images/${imagen}.png"></span>
@@ -113,13 +155,25 @@ function listadoCarrito() {
         contenedor.innerHTML = htmlString + `</span>`
 
     }
+    //Función para quitar productos del carrito
     quitarProducto(posicion);
+    //Función para actualizar contador del carrito
     actualizarContadorCarro();
 }
 
+//Función para mostrar el carrito con mouseover
+let botonCarrito = document.getElementById("carroDeCompras")
+botonCarrito.onmouseover = () => {
+    let contenedorCarrito = document.getElementById("productosEnCarrito")
+    contenedorCarrito.style.display = "block";
+}
+botonCarrito.onmouseout = () => {
+    let contenedorCarrito = document.getElementById("productosEnCarrito")
+    contenedorCarrito.style.display = "none";
+}
 
 
-
+//Función para quitar productos del carrito
 function quitarProducto(posicion) {
     let borrarProducto = document.getElementsByClassName("carrito__carreraTexto--quitar");
     for (const boton of borrarProducto) {
@@ -132,32 +186,12 @@ function quitarProducto(posicion) {
             listadoCarrito()
         }
     }
-
 }
 
-
-
-
-
-
-//Variables que genera el contenedor de productos
-let contenidoProductos = document.getElementsByClassName("contenedorProductos");
-
-
-
-
-
-
-//Función que Asigna código a los productos listados en el array de modelos publicados
-asignarCodigoProductos();
-
-
-//Array de Nuestro Catálogo Disponible de zapatillas que será mostrado en el sitio
-let catalogoDisponible = listadoProductos.filter((cantidad) => cantidad.stock > 0)
-
-
-
-// DECLARACIÓN DE FUNCIONES
+//Función para actualizar el número de productos en el carrito
+function actualizarContadorCarro() {
+    divContenidoCarrito.innerHTML = `Productos en el carrito: ${carroDeCompras.length}`;
+}
 
 //Función para asignar Codigo de producto
 function asignarCodigoProductos() {
@@ -166,8 +200,8 @@ function asignarCodigoProductos() {
     }
 }
 
-
-// Funciones del proceso de compra
+//Función que Asigna código a los productos listados en el array de modelos publicados
+asignarCodigoProductos();
 
 
 
@@ -211,10 +245,7 @@ function mostrarProductos() {
     })
 }
 
-
-
-
-
+//Función para Agregar productos al carrito
 function agregarAlCarrito() {
     listadoProductos.forEach((listadoProductos) => {
 
@@ -235,47 +266,17 @@ function agregarAlCarrito() {
                 let imagen = listadoProductos.marca.charAt(0) + listadoProductos.modelo.charAt(0) + listadoProductos.color.charAt(0);
 
                 carroDeCompras.push(new CarroDeCompras(marcaCompra, modeloCompra, parseInt(talleCompra), colorCompra, cantidad, codCompra, imagen));
-                console.log("producto agregado al carrito")
                 localStorage.setItem("carritoAlmacenado", JSON.stringify(carroDeCompras));
 
+                //Se actualizado el listado de productos en el carrito
                 listadoCarrito();
+                //Se Actualiza el contador del carrito
                 actualizarContadorCarro();
             }
 
         })
     })
 
-
-}
-
-
-//Función que genera el contenido del encabezado
-function infoEncabezado(nombreUsuario) {
-
-    let contenidoEncabezado = document.getElementsByClassName("datosUsuario")
-
-    spanNombre = document.createElement('span');
-    spanNombre.classList.add("nombreUsuario")
-    spanNombre.innerHTML = `¡Hola ${nombreUsuario}!` + ` / <div id="btnCerrarUsuario">Cerrar Sesión</div>`;
-
-
-
-    contenidoEncabezado[0].appendChild(spanNombre);
-
-
-    divCarro = document.getElementsByClassName("datosCarro");
-
-    divContenidoCarrito = document.createElement('span');
-    divContenidoCarrito.classList.add("accesoCarrito")
-
-    let contenidoCarrito = document.getElementsByClassName("contenedorCarrito")
-    contenidoCarrito[0].appendChild(divContenidoCarrito)
-    actualizarContadorCarro();
-}
-
-//Función para actualizar el número de productos en el carrito
-function actualizarContadorCarro() {
-    divContenidoCarrito.innerHTML = `Productos en el carrito: ${carroDeCompras.length}`;
 }
 
 
@@ -287,26 +288,8 @@ listadoCarrito()
 
 
 
-let botonCarrito = document.getElementById("carroDeCompras")
-botonCarrito.onmouseover = () => {
-    let contenedorCarrito = document.getElementById("productosEnCarrito")
-    contenedorCarrito.style.display = "block";
-}
-botonCarrito.onmouseout = () => {
-    let contenedorCarrito = document.getElementById("productosEnCarrito")
-    contenedorCarrito.style.display = "none";
-}
-
-
-//Función de cerrar sesión
-function crearSesion() {
-    localStorage.clear();
-    location.reload();
-}
-
-
 //CREAR SESIÓN
-let btnCrearUsuario = document.getElementById("btnCerrarUsuario")
-btnCrearUsuario.onclick = () => {
-    crearSesion();
+let btnCerrarSesion = document.getElementById("btnCerrarUsuario")
+btnCerrarSesion.onclick = () => {
+    cerrarSesion();
 }
