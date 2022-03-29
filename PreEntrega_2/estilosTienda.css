@@ -110,7 +110,7 @@
     
     #productosEnCarrito {
         display: none;
-        position: absolute;
+        position: fixed;
         background-color: rgba(35, 35, 35, 0.9);
         width: 400px;
         height: 100%;
