@@ -31,7 +31,7 @@ function registrarse(event) {
     localStorage.setItem("usuario", usuario);
     localStorage.setItem("contraseña", pass);
     localStorage.setItem("log", "true");
-    window.location.replace("tienda-clase13Guzman.html");
+    window.location.replace("tienda-clase15Guzman.html");
 }
 
 
@@ -60,7 +60,7 @@ function loguearse(e) {
     pass = localStorage.getItem("contraseña")
     if ((usuarioIngresado == nombre) && (passIngresada == pass)) {
         localStorage.setItem('log', "true");
-        window.location.replace("tienda-clase13Guzman.html");
+        window.location.replace("tienda-clase15Guzman.html");
     } else {
         let errorPass = document.createElement("span");
         errorPass.innerHTML = `USUARIO O CONTRASEÑA INCORRECTO`

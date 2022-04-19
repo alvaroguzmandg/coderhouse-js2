@@ -20,58 +20,7 @@ class ListadoProductos {
         this.codProducto = letraMarca + letraMarca2 + letraModelo + letraColor + letraCategoria;
     }
 
-    //Validación de stock a la hora de elegir el producto
-    // validarStockProducto() {
-    //     if (this.stock > 0) {
-    //         return true
-    //     } else {
-    //         return false
-    //     }
-    // }
-
-    //Resta de stock disponible en caso de agregar al carrito
-    // restarStock() {
-    //     this.stock = this.stock - 1
-    // }
-
-    // // Suma de stock en caso de entrar más productos
-    // sumarStock() {
-    //     this.stock = this.stock + 1
-    // }
 }
-
-//Array de modelos de zapatillas existentes
-// let listadoProductos = []
-
-// async function mostrarProductos() {
-//     let productos = await fetch("/productos.json");
-
-//     listadoProductos = [await productos.json()]
-
-// }
-
-
-const definirProductos = async() => {
-    const resp = await fetch('productos.json')
-    listadoProductos = await resp.json()
-
-    listadoProductos.forEach(listadoProductos => {
-        let letraMarca = listadoProductos.marca.charAt(0)
-        let letraMarca2 = listadoProductos.marca.charAt(1)
-        let letraModelo = listadoProductos.modelo.charAt(0)
-        let letraColor = listadoProductos.color.charAt(0)
-        let letraCategoria = listadoProductos.categoria.charAt(0)
-        listadoProductos.codProducto = letraMarca + letraMarca2 + letraModelo + letraColor + letraCategoria;
-    })
-
-    mostrarProductos()
-    agregarAlCarrito()
-    listadoCarrito()
-}
-
-
-definirProductos()
-
 
 // DECLARACIÓN DE ARRAYS
 class CarroDeCompras {
@@ -113,6 +62,31 @@ let contenidoProductos = document.getElementsByClassName("contenedorProductos");
 
 
 // DECLARACIÓN DE FUNCIONES
+
+
+//Función para traer productos
+const definirProductos = async() => {
+    const resp = await fetch('productos.json')
+    listadoProductos = await resp.json()
+
+    listadoProductos.forEach(listadoProductos => {
+        let letraMarca = listadoProductos.marca.charAt(0)
+        let letraMarca2 = listadoProductos.marca.charAt(1)
+        let letraModelo = listadoProductos.modelo.charAt(0)
+        let letraColor = listadoProductos.color.charAt(0)
+        let letraCategoria = listadoProductos.categoria.charAt(0)
+        listadoProductos.codProducto = letraMarca + letraMarca2 + letraModelo + letraColor + letraCategoria;
+    })
+
+    mostrarProductos()
+    agregarAlCarrito()
+    listadoCarrito()
+}
+
+
+definirProductos()
+
+
 
 //Función que genera el contenido del encabezado
 function infoEncabezado(nombreUsuario) {
