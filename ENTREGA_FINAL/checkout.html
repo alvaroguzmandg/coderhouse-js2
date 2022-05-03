@@ -81,66 +81,90 @@
 
 
 
-        <div id="headerUsuario">
-            <div class="headerUsuario__contenido">
-                <div class="datosUsuario"></div>
-                <div id="carroDeCompras" class="datosCarro">
-                    <div class="contenedorCarrito">
 
+        <section class="portada">
 
-                        <ul id="productosEnCarrito">
-                        </ul>
+            <!-- PORTADA -->
+            <picture>
+                <source srcset="images/portada-tienda-xl.png" media="(min-width: 1280px)" />
+                <source srcset="images/portada-tienda-lg.png" media="(min-width: 990px)" />
+                <source srcset="images/portada-tienda-md.png" media="(min-width: 600px)" />
+                <img src="images/portada-tienda-sm.png" alt="Imagen de portada sección Tienda RunClub" />
+            </picture>
+            <div id="headerUsuario">
+                <div class="headerUsuario__contenido">
+                    <div class="datosUsuario"></div>
+                    <div id="carroDeCompras" class="datosCarro">
 
                     </div>
                 </div>
             </div>
-        </div>
-
+            <div class="encabezadoDestacado bloqueContenido--lg">
+                <h1 id="tituloCheckout">FINALIZÁ <span class="destacadoClub">TU COMPRA</span></h1>
+            </div>
+        </section>
 
         <div id="contenedorTienda">
-            <h1>TIENDA <span class="destacadoClub">RUNCLUB</span></h1>
-            <div id="ingresoNombre">
+            <div id="listadoCheckout"></div>
+
+            <div id="datosCheckout">
+                <span class="tituloCheckout">COMPLETÁ TUS DATOS PARA FINALIZAR LA COMPRA</span>
+                <div class="datosComprador">
+                    <div class="datosPersona">
+                        <span class="tituloDato">TUS DATOS</span>
+                        <label for="email" class="tituloForm">CORREO ELECTRÓNICO</label>
+                        <input class="datosCampo" type="email" id="email" placeholder="Dirección de correo electrónico" value="" required>
+                        <label for="nombre" class="tituloForm">NOMBRE Y APELLIDO</label>
+                        <input class="datosCampo" type="text" id="nombre" placeholder="Nombre y Apellido" required>
+                        <label for="dni" class="tituloForm">DNI</label>
+                        <input class="datosCampo" type="number" id="dni" placeholder="Número de documento" required>
+                        <label for="telefono" class="tituloForm">NÚMERO DE TELÉFONO</label>
+                        <input class="datosCampo" type="number" id="telefono" placeholder="Número de teléfono" required>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                            <label class="form-check-label" for="flexCheckChecked">Quiero recibir novedades por e-mail.
+                        </label>
+                        </div>
+                    </div>
+                    <div class="datosCompra">
+                        <div class="datosEnvio">
+                            <span class="tituloDato">MÉTODO DE ENVÍO</span>
+                            <span class="tituloForm">SELECCIONÁ LA OPCIÓN DE RETIRO</span>
+                            <div id="metodoEnvio">
+                                <div id="metodoEnvio" class="selectorCheckout">
+                                    <span class="selector" id="retiro" onclick="metodoEnvio()">RETIRO EN TIENDA</span>
+                                    <span class="selector" id="envio" onclick="metodoEnvio()">ENVÍO A DOMICILIO</span>
+                                </div>
+                            </div>
+                            <span id="legalEnvio"></span>
+                            <!-- <span class="legalCheckout">POR MOMENTOS SÓLO CONTAMOS CON RETIRO EN TIENDA</span> -->
+                            <span class="tituloForm">SELECCIONA EL LOCAL</span>
+                            <select class="form-select" id="local" aria-label="Default select example" required>
+                                <option value="0" selected></option>
+                                <option value="1">ALTO PALERMO</option>
+                                <option value="2">ABASTO SHOPPING</option>
+                                <option value="3">DOT BUENOS AIRES</option>
+                            </select>
+                        </div>
+                        <span class="separador"></span>
+                        <div class="datosPago">
+                            <div id="metodoPago">
+                                <span class="tituloDato">MÉTODO DE PAGO</span>
+                                <span class="tituloForm">ELEGÍ COMO QUERÉS PAGAR</span>
+                                <div class="selectorCheckout">
+                                    <span class="selector" id="opcion1" onclick="pagoEfectivo()">EFECTIVO</span>
+                                    <span class="selector" id="opcion2" onclick="pagoTarjeta()">TARJETA DE CRÉDITO</span>
+                                </div>
+                            </div>
+                            <span id="legalPago"></span>
+                            <!-- <span class="legalCheckout">¡ABONARÁS AL RETIRAR TU COMPRA!</span> -->
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" class="btRun-med" id="finalizarCompra" onclick="finalizarCompra()" value="FINALIZAR COMPRA">
+
             </div>
 
-            <!--             
-            <div class="listadoDeCompras">
-                <h3 id="tituloCarrito">Artículos Comprados:</h3>
-            </div> -->
-
-
-            </section>
-            <div id="filtros">
-                <span class="filtroCategoria" onclick="mostrarProductos(productosAdidas())">ADIDAS</span>
-                <span class="filtroCategoria" onclick="mostrarProductos(productosNike())">NIKE</span>
-                <span class="filtroCategoria" onclick="mostrarProductos(productosSaucony())">SAUCONY</span>
-                <span class="filtroCategoria" onclick="mostrarProductos(productosAZ())">ORDENAN ALFABÉTICO</span>
-                <span class="filtroCategoria" onclick="mostrarProductos(categoriaHombre())">CATEGORIA HOMBRE</span>
-                <span class="filtroCategoria" onclick="mostrarProductos(categoriaMujer())">CATEGORIA MUJER</span>
-            </div>
-
-            <style>
-                #filtros {
-                    display: flex;
-                    width: 90%;
-                    max-width: 1080px;
-                    margin: 0 auto;
-                    align-items: center;
-                    gap: 30px;
-                    justify-content: center;
-                    margin-top: 30px;
-                }
-                
-                #filtros .filtroCategoria {
-                    display: block;
-                    padding: 10px;
-                    background-color: #c8c8c8;
-                    border: 1px solid black;
-                    color: black;
-                    border-radius: 5px;
-                }
-            </style>
-
-            <div class="contenedorProductos"></div>
         </div>
 
 
@@ -181,7 +205,7 @@
     <script src="librerias/sweetAlert/sweetalert2.all.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <script src="tienda.js"></script>
+    <script src="checkout.js"></script>
 
 
 

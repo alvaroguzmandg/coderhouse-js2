@@ -166,7 +166,7 @@ function listadoCarrito() {
             contenedor.innerHTML = htmlString + `
             
             <span id="precioCarrito">Total: $${precioCarritoTotal}</span>
-            <span class="btRun-med" id="finalizarCompra">FINALIZAR COMPRA</span>
+            <span class="btRun-med" id="finalizarCompra" onclick="avanzarCheckout()">FINALIZAR COMPRA</span>
             <span id="vaciarCarrito">Vaciar Carrito</span></span>
             `
             const botonVaciar = document.getElementById("vaciarCarrito");
@@ -174,6 +174,11 @@ function listadoCarrito() {
         }
 
     }
+}
+
+//Función para ir al checkout
+function avanzarCheckout() {
+    carroDeCompras.length != 0 && window.location.replace("checkout.html");
 }
 
 //Función para vaciar el carrito
@@ -227,14 +232,24 @@ function quitarProducto(id) {;
     }).showToast();
 }
 
-//Función para actualizar el número de productos en el carrito
+
+
+
+
+//Función para actualizar el icono y el número de productos en el carrito
 function actualizarContadorCarro() {
     cantidad = 0;
     for (let i = 0; i < carroDeCompras.length; i++) {
         let suma = carroDeCompras[i].cantidad
         cantidad = cantidad + suma
     }
-    divContenidoCarrito.innerHTML = `Productos en el carrito: ${cantidad}`;
+    let carritoVacio = () => {
+        divContenidoCarrito.innerHTML = `<img class="iconoCarrito" src="images/carritoVacio.svg"> <span class="cantidadCarrito">${cantidad}</span>`;
+    }
+    let carritoCargado = () => {
+        divContenidoCarrito.innerHTML = `<img class="iconoCarrito" src="images/carritoCargado.svg"> <span class="cantidadCarrito">${cantidad}</span>`;
+    }
+    carroDeCompras.length == 0 ? carritoVacio() : carritoCargado()
 }
 
 
@@ -246,10 +261,12 @@ function mostrarProductos(grillaProductos) {
         let divProducto = document.createElement('div');
         divProducto.classList.add("bloqueProducto");
 
+
+
         htmlString = `<span class="productoFoto"><img src="images/${grillaProductos.marca.charAt(0)}${grillaProductos.modelo.charAt(0)}${grillaProductos.color.charAt(0)}.png"></span>
         <span class="productoMarca">${grillaProductos.marca} ${grillaProductos.modelo} </span>
         <span class="productoDescripcion">Categoria: ${grillaProductos.categoria} / Color: ${grillaProductos.color} </span>
-        <span class="productoDescripcion">Precio $${grillaProductos.precio}</span>
+        <span class="productoDescripcionprecio">Precio <span class="precioGrilla">$${grillaProductos.precio}</span></span>
         <span class="productoEspecificaciones">
             <select id="talles-${grillaProductos.codProducto}" class="caja" value="Elegí tu talle">
             <option value="Elegí tu talle">Talle</option>`;
@@ -276,8 +293,10 @@ function mostrarProductos(grillaProductos) {
 
 
 
+
     })
     agregarAlCarrito(grillaProductos)
+
 }
 
 
@@ -393,12 +412,33 @@ function ordenarAlfabetico(x, y) {
 let productosAZ = () => listadoProductos.sort(ordenarAlfabetico);
 
 
-//Filtro categoria
+//Filtros de categoria
 const categoriaHombre = () => listadoProductos.filter(listadoProductos => listadoProductos.categoria === "Hombre");
+
+
+
 const categoriaMujer = () => listadoProductos.filter(listadoProductos => listadoProductos.categoria === "Mujer");
 
-//Filtro por marca
-
+//Filtro de marca
 const productosAdidas = () => listadoProductos.filter(listadoProductos => listadoProductos.marca === "Adidas");
+const productosAsics = () => listadoProductos.filter(listadoProductos => listadoProductos.marca === "Asics");
+const productosNewBalance = () => listadoProductos.filter(listadoProductos => listadoProductos.marca === "New Balance");
 const productosNike = () => listadoProductos.filter(listadoProductos => listadoProductos.marca === "Nike");
 const productosSaucony = () => listadoProductos.filter(listadoProductos => listadoProductos.marca === "Saucony");
+
+
+//Función Orden precio
+function ordenPrecioMenorMayor(x, y) {
+    if (x.precio < y.precio) { return -1; }
+    if (x.precio > y.precio) { return 1; }
+    return 0;
+}
+let productosPrecioMenorMayor = () => listadoProductos.sort(ordenPrecioMenorMayor);
+
+
+function ordenPrecioMayorMenor(x, y) {
+    if (x.precio > y.precio) { return -1; }
+    if (x.precio < y.precio) { return 1; }
+    return 0;
+}
+let productosPrecioMayorMenor = () => listadoProductos.sort(ordenPrecioMayorMenor);

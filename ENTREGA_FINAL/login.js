@@ -8,8 +8,6 @@ if (localStorage.getItem("usuario") == null) {
     usuario = localStorage.getItem("usuario");
     let parrafo = document.createElement("h2");
     parrafo.innerHTML = `Iniciar sesion`
-        // document.getElementById("tituloSesion").appendChild(parrafo);
-        // document.getElementById("tituloSesion").appendChild(textoTitulo);
     document.getElementById("formularioRegistro").style.display = "none";
 }
 
