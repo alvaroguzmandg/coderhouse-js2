@@ -11,7 +11,7 @@
         "id": 2,
         "marca": "Adidas",
         "modelo": "Boston 10",
-        "talle": [38, 39],
+        "talle": [40, 42, 43],
         "color": "Azul",
         "categoria": "Hombre",
         "precio": 42195
@@ -86,7 +86,7 @@
         "modelo": "SL 20",
         "talle": [35, 36, 38],
         "color": "Rosa",
-        "categoria": "Hombre",
+        "categoria": "Mujer",
         "precio": 21425
     },
     {
@@ -95,16 +95,16 @@
         "modelo": "Joyride",
         "talle": [39, 40, 41],
         "color": "Blancas",
-        "categoria": "Mujer",
+        "categoria": "Hombre",
         "precio": 33149
     },
     {
         "id": 12,
         "marca": "Nike",
         "modelo": "React Infinity",
-        "talle": [40, 42, 43],
+        "talle": [35, 37, 38],
         "color": "Azul",
-        "categoria": "Hombre",
+        "categoria": "Mujer",
         "precio": 32189
     },
     {
@@ -120,9 +120,50 @@
         "id": 14,
         "marca": "Asics",
         "modelo": "Tri Noosa",
-        "talle": [40, 42, 43],
+        "talle": [36, 39, 39],
         "color": "Verde",
-        "categoria": "Hombre",
+        "categoria": "Mujer",
         "precio": 21414
+    }, {
+        "id": 15,
+        "marca": "Nike",
+        "modelo": "Next2 %",
+        "talle": [40, 42, 43],
+        "color": "Negra",
+        "categoria": "Hombre",
+        "precio": 49999
+    }, {
+        "id": 16,
+        "marca": "Nike",
+        "modelo": "Next2 %",
+        "talle": [36, 37, 38],
+        "color": "Verde",
+        "categoria": "Mujer",
+        "precio": 49999
+    }, {
+        "id": 17,
+        "marca": "New Balance",
+        "modelo": "Wizard",
+        "talle": [37, 39, 39],
+        "color": "Coral",
+        "categoria": "Mujer",
+        "precio": 19899
+    }, {
+        "id": 18,
+        "marca": "Nike",
+        "modelo": "Joyride",
+        "talle": [35, 36, 37],
+        "color": "Blanco Grisaceo",
+        "categoria": "Mujer",
+        "precio": 33149
+    },
+    {
+        "id": 19,
+        "marca": "Adidas",
+        "modelo": "Boston 10",
+        "talle": [38, 39],
+        "color": "Azul Verdoso",
+        "categoria": "Mujer",
+        "precio": 42195
     }
 ]
