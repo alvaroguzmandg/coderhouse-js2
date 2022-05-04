@@ -1,6 +1,127 @@
+/* ------------------------------ ESTILOS INDEX ----------------------------- */
+
+.caja {
+    border: 1px solid #d9d9d9;
+    padding: 10px;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    border-radius: 1px;
+    text-align: center;
+}
+
+select {
+    background: transparent;
+    border: none;
+    font-size: 12px;
+    padding: 10px;
+    height: auto;
+    text-align: center;
+}
+
+select:focus {
+    outline: none;
+}
+
+.caja::after {
+    content: "\025be";
+    display: table-cell;
+    padding-top: 3px;
+    text-align: center;
+    height: auto;
+    background-color: #d9d9d9;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    pointer-events: none;
+}
+
+#formularioRegistro {
+    width: 90%;
+    max-width: 990px;
+    margin: 0 auto;
+}
+
+.entrenaContacto .entrenaContacto__bloqueCentral {
+    grid-template-columns: 1fr;
+}
+
+form select,
+form input {
+    background-color: #fff;
+    border: 0;
+    padding: 10px 10px;
+    box-sizing: border-box;
+    margin: 10px auto;
+    color: #8d8d8d;
+    border-radius: 3px;
+    text-align: left;
+    width: 100%;
+    border: 1px solid #e5e5e5;
+}
+
+.registro {
+    border: 1px solid #FF5500!important;
+    color: #FF5500;
+    background-color: white;
+    font-size: 12px;
+    margin-top: 20px!important;
+}
+
+
+/* --------------------------------- ESTILOS TIENDA -------------------------------- */
+
+
+/* HEADER */
+
+#headerUsuario {
+    background-color: #232323;
+    width: 100%;
+    padding: 5px 0px;
+}
+
+.headerUsuario__contenido {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center
+}
+
+.nombreUsuario,
+.datosCarro {
+    display: inline-block;
+    padding: 10px 0px;
+    font-size: 14px;
+    color: white;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+#btnCerrarUsuario {
+    font-size: 12px;
+    font-weight: 300;
+    cursor: pointer;
+    display: inline-block;
+}
+
+
+/* ESTILOS PORTADA */
+
 .portada img {
     margin-bottom: 0px;
 }
+
+h1 {
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 100%;
+}
+
+
+/* ESTILOS CONTENEDOR */
 
 #contenedorTienda {
     width: 90%;
@@ -21,31 +142,8 @@
     }
 }
 
-h1 {
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 20px;
-    width: 100%;
-}
 
-.contenedorProductos {
-    width: 80%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-}
-
-@media only screen and (max-width:870px) {
-    .contenedorProductos {
-        gap: 10px;
-    }
-}
-
-
-/* FILTROS */
+/* --------------------------------- FILTROS -------------------------------- */
 
 #filtros {
     display: flex;
@@ -127,7 +225,23 @@ h1 {
 }
 
 
-/* GRILLA PRODUCTOS */
+/* --------------------------- GRILLA DE PRODUCTOS -------------------------- */
+
+.contenedorProductos {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+@media only screen and (max-width:870px) {
+    .contenedorProductos {
+        gap: 10px;
+    }
+}
 
 .bloqueProducto {
     display: block;
@@ -221,40 +335,45 @@ h1 {
     }
 }
 
-
-/* HEADER */
-
-#headerUsuario {
+.btnAgregar {
     background-color: #232323;
-    width: 100%;
-    padding: 5px 0px;
-}
-
-.headerUsuario__contenido {
-    display: flex;
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    justify-content: space-between;
-    align-items: center
-}
-
-.nombreUsuario,
-.datosCarro {
-    display: inline-block;
-    padding: 10px 0px;
-    font-size: 14px;
+    border: 0px;
+    padding: 10px;
     color: white;
-    font-weight: 900;
-    text-transform: uppercase;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 1rem;
 }
 
-#btnCerrarUsuario {
-    font-size: 12px;
-    font-weight: 300;
-    cursor: pointer;
-    display: inline-block;
+.btnAgregar:hover {
+    background-color: #FF5500;
 }
+
+@media only screen and (max-width: 660px) {
+    .bloqueProducto {
+        width: 48%;
+    }
+    .contenedorProductos {
+        flex-direction: row;
+        gap: 0px;
+        justify-content: space-between;
+    }
+    #productosEnCarrito {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .bloqueProducto {
+        width: 100%;
+    }
+    .headerUsuario__contenido {
+        flex-direction: column;
+    }
+}
+
+
+/* ----------------------- ESTILOS CARRITO DE COMPRAS ----------------------- */
 
 #productosEnCarrito {
     display: none;
@@ -405,113 +524,8 @@ h1 {
     display: none;
 }
 
-.btnAgregar {
-    background-color: #232323;
-    border: 0px;
-    padding: 10px;
-    color: white;
-    box-sizing: border-box;
-    display: inline-block;
-    font-size: 1rem;
-}
 
-.btnAgregar:hover {
-    background-color: #FF5500;
-}
-
-.caja {
-    border: 1px solid #d9d9d9;
-    padding: 10px;
-    height: auto;
-    overflow: hidden;
-    position: relative;
-    border-radius: 1px;
-    text-align: center;
-}
-
-select {
-    background: transparent;
-    border: none;
-    font-size: 12px;
-    padding: 10px;
-    height: auto;
-    text-align: center;
-}
-
-select:focus {
-    outline: none;
-}
-
-.caja::after {
-    content: "\025be";
-    display: table-cell;
-    padding-top: 3px;
-    text-align: center;
-    height: auto;
-    background-color: #d9d9d9;
-    position: absolute;
-    top: 0;
-    right: 0px;
-    pointer-events: none;
-}
-
-#formularioRegistro {
-    width: 90%;
-    max-width: 990px;
-    margin: 0 auto;
-}
-
-.entrenaContacto .entrenaContacto__bloqueCentral {
-    grid-template-columns: 1fr;
-}
-
-form select,
-form input {
-    background-color: #fff;
-    border: 0;
-    padding: 10px 10px;
-    box-sizing: border-box;
-    margin: 10px auto;
-    color: #8d8d8d;
-    border-radius: 3px;
-    text-align: left;
-    width: 100%;
-    border: 1px solid #e5e5e5;
-}
-
-.registro {
-    border: 1px solid #FF5500!important;
-    color: #FF5500;
-    background-color: white;
-    font-size: 12px;
-    margin-top: 20px!important;
-}
-
-@media only screen and (max-width: 660px) {
-    .bloqueProducto {
-        width: 48%;
-    }
-    .contenedorProductos {
-        flex-direction: row;
-        gap: 0px;
-        justify-content: space-between;
-    }
-    #productosEnCarrito {
-        width: 70%;
-    }
-}
-
-@media only screen and (max-width: 500px) {
-    .bloqueProducto {
-        width: 100%;
-    }
-    .headerUsuario__contenido {
-        flex-direction: column;
-    }
-}
-
-
-/* sweet alert */
+/* SWEET ALERT */
 
 .swal2-html-container {
     color: #232323!important
@@ -536,7 +550,7 @@ form input {
 }
 
 
-/* ESTILOS CHECKOUT */
+/* ---------------------------- ESTILOS CHECKOUT ---------------------------- */
 
 #portadaCheckout .encabezadoDestacado.bloqueContenido--lg {
     padding-bottom: 0px;
