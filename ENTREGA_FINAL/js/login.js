@@ -3,12 +3,20 @@ if (localStorage.getItem("usuario") == null) {
     let parrafo = document.createElement("h3");
     parrafo.innerHTML = `Registrate para ingresar`
     document.getElementById("tituloRegistro").appendChild(parrafo);
+    //Aculta boton crear usuario
+    boton = document.getElementById("btnCrearUsuario").style.display = "none"
 } else {
     let textoTitulo = document.createElement("h3");
     usuario = localStorage.getItem("usuario");
     let parrafo = document.createElement("h2");
     parrafo.innerHTML = `Iniciar sesion`
     document.getElementById("formularioRegistro").style.display = "none";
+
+    //Botón para crear Usuario
+    let btnCrearUsuario = document.getElementById("btnCrearUsuario")
+    btnCrearUsuario.onclick = () => {
+        crearSesion();
+    }
 }
 
 
@@ -17,7 +25,7 @@ if (localStorage.getItem("usuario") == null) {
 let formularioRegistro = document.getElementById("formularioRegistro");
 formularioRegistro.addEventListener("submit", registrarse);
 
-
+// Función que genera el registro
 function registrarse(event) {
     event.preventDefault();
     let elemento = event.target;
@@ -30,12 +38,6 @@ function registrarse(event) {
     localStorage.setItem("contraseña", pass);
     localStorage.setItem("log", "true");
     window.location.replace("tienda.html");
-}
-
-
-let btnCrearUsuario = document.getElementById("btnCrearUsuario")
-btnCrearUsuario.onclick = () => {
-    crearSesion();
 }
 
 //Función de cerrar sesión
