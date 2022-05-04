@@ -283,19 +283,16 @@ function mostrarCheckout() {
         <span class="tituloDato precio">Total: <span class="textoDato precio">$${precioCompra}</span></span>
         
     </div>`
-
+    htmlString = `<span class="tituloProductos">Listado de productos comprados</span>`;
     for (let index = 0; index < carroDeCompras.length; index++) {
 
         let marca = carroDeCompras[index].marca;
         let modelo = carroDeCompras[index].modelo;
         let talle = carroDeCompras[index].talle;
-        let precio = carroDeCompras[index].precio;
         let imagen = carroDeCompras[index].imagen;
-        let id = carroDeCompras[index].id;
         let cantidad = carroDeCompras[index].cantidad;
         // let codProducto = carroDeCompras[index].codProducto
-        htmlString = `<span class="tituloProductos">Listado de productos comprados</span>`
-            // String HTML de la vista del producto en el carrito
+        // String HTML de la vista del producto en el carrito
         htmlString += `<li class="productosComprados">
                 <span class="listadoProductosComprados--bloque">
                     <span class="productoComprado__producto imagen"><img src="images/${imagen}.png"></span>
@@ -307,7 +304,6 @@ function mostrarCheckout() {
                 </span>
                 </li>
                 `
-        console.log(cantidad)
     }
     contenedorProductos.innerHTML = htmlString;
     checkout.appendChild(datosCompra);
