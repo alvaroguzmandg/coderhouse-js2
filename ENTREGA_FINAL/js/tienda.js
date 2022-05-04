@@ -1,3 +1,4 @@
+/* ------------------------- FUNCIONES CONSTRUCTORAS ------------------------ */
 //Función constructora de productos
 class ListadoProductos {
     constructor(id, marca, modelo, talles, color, categoria, precio) {
@@ -22,7 +23,7 @@ class ListadoProductos {
 
 }
 
-//función constructora del carro de compras
+//Función constructora del carro de compras
 class CarroDeCompras {
     constructor(id, marca, modelo, talles, color, cantidad, codProducto, imagen, precio) {
         this.id = id;
@@ -46,15 +47,17 @@ class CarroDeCompras {
 let carroDeComprasAlmacenado = JSON.parse(localStorage.getItem('carritoAlmacenado'))
 
 
-/* -------------------- Declaración del array del carrito ------------------- */
-
-//Versión con operador ternario: Si la declaración del array con carrito Almacenado es nula, 
-//declara el carro de compras vacío y sino, crea el array de carro de compras concatenando el array de productos almacenados en el carrito
-
+// Declaración del array del carrito
+//Versión con operador ternario:
 // carroDeComprasAlmacenado === null ? carroDeCompras = [] : carroDeCompras = [].concat(carroDeComprasAlmacenado)
+// Si la declaración del array con carrito Almacenado es nula, 
+//declara el carro de compras vacío y sino, crea el array de carro de compras
+// concatenando el array de productos almacenados en el carrito
+
 
 //Versión con operador lógico OR de la declaración del array del carrito
 let carroDeCompras = carroDeComprasAlmacenado || []
+
 
 
 //Variables que genera el contenedor de productos

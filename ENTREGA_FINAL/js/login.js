@@ -1,3 +1,9 @@
+/* ------------------------------ REGISTRARSE ----------------------------- */
+
+/* ------------------------ VALIDACIÓN EN EL INGRESO ------------------------ */
+//Si el usuario no existe lo invita a registrarse
+//Si el usuario existe lo invita a loguearse
+
 if (localStorage.getItem("usuario") == null) {
     document.getElementById("formularioInicio").style.display = "none"
     let parrafo = document.createElement("h3");
@@ -19,11 +25,14 @@ if (localStorage.getItem("usuario") == null) {
     }
 }
 
-
-
-//REGISTRARSE
+//Evento de Registro
 let formularioRegistro = document.getElementById("formularioRegistro");
 formularioRegistro.addEventListener("submit", registrarse);
+
+//Evento de logueo
+let formularioInicio = document.getElementById("formularioInicio");
+formularioInicio.addEventListener("submit", loguearse);
+
 
 // Función que genera el registro
 function registrarse(event) {
@@ -45,9 +54,6 @@ function crearSesion() {
     localStorage.clear();
     location.reload();
 }
-
-let formularioInicio = document.getElementById("formularioInicio");
-formularioInicio.addEventListener("submit", loguearse);
 
 
 //VALIDACIÓN DE CONTRASEÑA
