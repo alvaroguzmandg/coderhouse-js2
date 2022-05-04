@@ -28,8 +28,6 @@ cargarDatosUsuario()
 
 function listadoCarrito() {
 
-    // precioCarrito();
-
     //Revisa productos Almacenados en LocalStorage y las carga al Carrito
     if (localStorage.getItem('carritoAlmacenado') != null) {
         precioCarritoTotal = localStorage.getItem("Precio Carrito");
@@ -38,7 +36,7 @@ function listadoCarrito() {
 
         htmlString = `
         <span class="listadoCarrito">
-        <span class="tituloCheckout listadoCarrito--titulo">LISTADO DE PRODUCTOS</span>`
+        <span class="tituloCheckout listadoCarrito--titulo">LISTADO DE COMPRA</span>`
 
 
         for (let index = 0; index < carroDeCompras.length; index++) {
@@ -76,21 +74,6 @@ function listadoCarrito() {
 }
 
 listadoCarrito()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -232,6 +215,25 @@ function finalizarCompra() {
     }
 }
 
+
+
+function crearBotonVolver() {
+    let botonVolver = document.createElement("div");
+    botonVolver.innerHTML = `
+    <div class="btRunDestacado-large" id="botonVolver" onclick="volverSitio()">volver a la tienda</div>
+    <span class="legalVolverSitio">SERÁS REDIRECCIONADO A LA TIENDA EN 120 SEGUNDOS</span>
+    `;
+
+    let main = document.getElementsByTagName("main")
+    main[0].append(botonVolver)
+
+    setTimeout(volverSitio, 120000)
+}
+
+function volverSitio() {
+    window.location.replace("tienda.html");
+}
+
 function mostrarCheckout() {
     let checkout = document.getElementById("contenedorTienda");
     let titulo = document.getElementById("tituloCheckout");
@@ -283,7 +285,7 @@ function mostrarCheckout() {
         <span class="tituloDato precio">Total: <span class="textoDato precio">$${precioCompra}</span></span>
         
     </div>`
-    htmlString = `<span class="tituloProductos">Listado de productos comprados</span>`;
+    htmlString = `<span class="tituloProductos">Productos comprados</span>`;
     for (let index = 0; index < carroDeCompras.length; index++) {
 
         let marca = carroDeCompras[index].marca;
@@ -310,19 +312,4 @@ function mostrarCheckout() {
     datosCompra.appendChild(contenedorProductos);
 
     crearBotonVolver()
-}
-
-function crearBotonVolver() {
-    let botonVolver = document.createElement("div");
-    botonVolver.innerHTML = `<div class="btRunDestacado-large" id="botonVolver" onclick="volverSitio()">volver a la tienda</div>`;
-
-    let main = document.getElementsByTagName("main")
-    main[0].append(botonVolver)
-
-
-}
-
-
-function volverSitio() {
-    window.location.replace("tienda.html");
 }

@@ -132,7 +132,7 @@ function listadoCarrito() {
 
         htmlString = `
         <span class="listadoCarrito">
-        <span class="listadoCarrito--titulo">LISTADO DE PRODUCTOS</span>`
+        <span class="listadoCarrito--titulo">LISTADO DE COMPRA</span>`
 
 
         for (let index = 0; index < carroDeCompras.length; index++) {
@@ -140,7 +140,7 @@ function listadoCarrito() {
             let marca = carroDeCompras[index].marca;
             let modelo = carroDeCompras[index].modelo;
             let talle = carroDeCompras[index].talle;
-            let precio = carroDeCompras[index].precio;
+            let precio = new Intl.NumberFormat('es-ES').format(carroDeCompras[index].precio);
             let imagen = carroDeCompras[index].imagen;
             let id = carroDeCompras[index].id;
             let cantidad = carroDeCompras[index].cantidad;
@@ -260,13 +260,11 @@ function mostrarProductos(grillaProductos) {
 
         let divProducto = document.createElement('div');
         divProducto.classList.add("bloqueProducto");
-
-
-
+        let precio = new Intl.NumberFormat('es-ES').format(`${grillaProductos.precio}`);
         htmlString = `<span class="productoFoto"><img src="images/${grillaProductos.marca.charAt(0)}${grillaProductos.modelo.charAt(0)}${grillaProductos.color.charAt(0)}.png"></span>
         <span class="productoMarca">${grillaProductos.marca} ${grillaProductos.modelo} </span>
         <span class="productoDescripcion">Categoria: ${grillaProductos.categoria} / Color: ${grillaProductos.color} </span>
-        <span class="productoDescripcionprecio">Precio <span class="precioGrilla">$${grillaProductos.precio}</span></span>
+        <span class="productoDescripcionprecio">Precio <span class="precioGrilla">$${precio}</span></span>
         <span class="productoEspecificaciones">
             <select id="talles-${grillaProductos.codProducto}" class="caja" value="Elegí tu talle">
             <option value="Elegí tu talle">Talle</option>`;
@@ -301,20 +299,21 @@ function mostrarProductos(grillaProductos) {
 
 
 //Función para Agregar productos al carrito
-function agregarAlCarrito(listado) {
+function agregarAlCarrito(agregarProductos) {
 
-    listado.forEach((agregarProductos) => {
+    agregarProductos.forEach((agregarProductos) => {
 
         let btnAgregar = document.getElementById(`btnCompra-${agregarProductos.id}`);
+        let talleElegido = "Elegí tu talle";
         btnAgregar.addEventListener("click", () => {
-            let talleCompra = document.getElementById(`talles-${agregarProductos.codProducto}`).value;
             const { id, marca, modelo, color, codProducto, precio } = agregarProductos
-            // let talleCompra = document.getElementById(`talles-${agregarProductos.codProducto}`);
             let cantidad = 1;
-            let codCompra = codProducto + talleCompra
+            let talleCompra = document.getElementById(`talles-${agregarProductos.codProducto}`);
+            let talleElegido = talleCompra.value
+            let codCompra = codProducto + talleElegido
             let imagen = marca.charAt(0) + modelo.charAt(0) + color.charAt(0);
             let idComprado = id;
-            if (talleCompra == "Elegí tu talle") {
+            if (talleElegido == "Elegí tu talle") {
                 // alert("Por favor, elegí un talle")
                 Swal.fire({
                         title: '¡Atención!',
@@ -345,7 +344,7 @@ function agregarAlCarrito(listado) {
                         }
                     })
                 } else {
-                    carroDeCompras.push(new CarroDeCompras(idComprado, marca, modelo, parseInt(talleCompra), color, cantidad, codCompra, imagen, precio));
+                    carroDeCompras.push(new CarroDeCompras(idComprado, marca, modelo, parseInt(talleElegido), color, cantidad, codCompra, imagen, precio));
                 }
 
 
@@ -395,7 +394,7 @@ function precioCarrito() {
         precioAcumulado += precioProducto
     }
 
-    precioCarritoTotal = precioAcumulado
+    precioCarritoTotal = new Intl.NumberFormat('es-ES').format(precioAcumulado);
     localStorage.setItem("Precio Carrito", precioCarritoTotal);
 }
 
