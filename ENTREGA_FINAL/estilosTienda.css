@@ -198,10 +198,12 @@ h1 {
     background-color: rgba(35, 35, 35, 0.9);
     width: 400px;
     height: 100%;
+    overflow-y: scroll;
     top: 0;
     right: 0;
     z-index: 99999;
     padding: 0;
+    padding-bottom: 40px;
 }
 
 .accesoCarrito {
@@ -228,7 +230,7 @@ h1 {
 .listadoCarrito {
     margin: 0 auto;
     width: 90%;
-    margin-top: 30%;
+    margin-top: 20%;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -453,13 +455,80 @@ form input {
 /* ESTILOS CHECKOUT */
 
 #listadoCheckout {
-    width: 35%;
-    background-color: green;
-    height: 300px;
+    width: 30%;
+    background-color: #232323;
+    overflow: hidden;
+    padding-top: 10px;
+    box-sizing: border-box;
+}
+
+.listadoCarrito .listadoCarrito--titulo {
+    padding: 0px;
+    font-size: 20px;
+    color: #FF5500;
+}
+
+.carrito__productoTexto .checkout {
+    text-align: left;
+}
+
+li#productoAgregado {
+    list-style: none;
+}
+
+.checkout {
+    color: white;
+}
+
+#listadoCheckout .listadoCarrito {
+    margin-top: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 450px;
+    overflow-y: scroll;
+}
+
+.listadoProductosCheckout--bloque {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    text-align: left;
+    align-items: center;
+    justify-content: flex-start
+}
+
+.listadoProductosCheckout img {
+    width: 100%;
+    background-color: #ebeef0;
+}
+
+.listadoProductosCheckout.imagen {
+    width: 30%;
+}
+
+.listadoProductosCheckout {
+    text-align: left;
+    font-weight: 900;
+    padding-top: 5px;
+    font-size: 14px;
+    line-height: 18px;
+    display: flex;
+    color: white;
+}
+
+.listadoProductosCheckout.titulo {
+    color: #FF5500;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.listadoProductosCheckout.talle {
+    color: white;
 }
 
 #datosCheckout {
-    width: 65%;
+    width: 70%;
     padding-top: 10px;
     box-sizing: border-box;
 }
@@ -471,6 +540,7 @@ form input {
     display: block;
     text-align: center;
     letter-spacing: 0.5;
+    padding-bottom: 20px!important;
 }
 
 .datosComprador {
@@ -565,4 +635,137 @@ form input {
 #finalizarCompra {
     background-color: #FF5500;
     border: 0;
+}
+
+
+/* ESTILOS CHECKOUT */
+
+#portadaCheckout .encabezadoDestacado.bloqueContenido--lg {
+    padding-bottom: 0px;
+}
+
+.numeroCompra h2 {
+    margin-top: 50px;
+    letter-spacing: 0;
+    background-color: #232323;
+    padding: 10px;
+    box-sizing: border-box;
+    color: white
+}
+
+.datosDeCompra {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    gap: 20px;
+    background-color: #ebeef0;
+}
+
+.informacionComprador {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 40px;
+}
+
+.informacionComprador .tituloDato {
+    color: #232323;
+    font-size: 14px;
+    line-height: 10px;
+    display: block;
+    text-align: left;
+    padding-bottom: 0px;
+}
+
+.informacionComprador .textoDato {
+    color: #FF5500;
+    font-weight: 900;
+    font-size: 16px;
+    display: inline-block;
+    padding-bottom: 20px;
+}
+
+.informacionComprador .tituloDato.precio,
+.informacionComprador .textoDato.precio {
+    font-size: 24px;
+}
+
+.listadoProductosComprados {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 50%;
+}
+
+.informacionComprador .tituloProductos {
+    padding-bottom: 30px;
+}
+
+.informacionComprador .tituloProductos,
+.listadoProductosComprados .tituloProductos {
+    display: inline-block;
+    text-align: left;
+    font-weight: 900;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #212529;
+    padding-top: 30px;
+}
+
+li.productosComprados {
+    display: flex;
+    list-style: none;
+    text-align: center;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    max-width: 90%;
+}
+
+.listadoProductosComprados--bloque {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    text-align: left;
+    align-items: center
+}
+
+.productoComprado__producto img {
+    width: 100%;
+    background-color: #ebeef0;
+}
+
+.productoComprado__producto.imagen {
+    width: 30%;
+}
+
+.productoComprado__producto {
+    text-align: left;
+    font-weight: 900;
+    padding-top: 5px;
+    font-size: 14px;
+    line-height: 18px;
+    display: flex;
+}
+
+.productoComprado__producto.titulo {
+    color: #FF5500;
+    text-transform: uppercase;
+}
+
+.volverTienda {
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #FF5500;
+}
+
+#botonVolver {
+    text-align: center;
+}
+
+#botonVolver:hover {
+    background-color: #232323;
+    color: white;
 }

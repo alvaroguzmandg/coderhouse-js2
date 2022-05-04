@@ -5,7 +5,7 @@
         "talle": [36, 37],
         "color": "Blanco",
         "categoria": "Mujer",
-        "precio": 34.999
+        "precio": 34999
     },
     {
         "id": 2,
@@ -14,7 +14,7 @@
         "talle": [38, 39],
         "color": "Azul",
         "categoria": "Hombre",
-        "precio": 42.195
+        "precio": 42195
     },
     {
         "id": 3,
@@ -23,7 +23,7 @@
         "talle": [40, 41, 42],
         "color": "Verde",
         "categoria": "Hombre",
-        "precio": 26.499
+        "precio": 26499
     },
     {
         "id": 4,
@@ -32,7 +32,7 @@
         "talle": [43, 44, 45],
         "color": "Naranja",
         "categoria": "Hombre",
-        "precio": 28.599
+        "precio": 28599
     },
     {
         "id": 5,
@@ -41,7 +41,7 @@
         "talle": [37, 38, 39],
         "color": "Azul",
         "categoria": "Mujer",
-        "precio": 22.199
+        "precio": 22199
     },
     {
         "id": 6,
@@ -50,7 +50,7 @@
         "talle": [40, 42, 43],
         "color": "Verde",
         "categoria": "Hombre",
-        "precio": 19.899
+        "precio": 19899
     },
 
     {
@@ -60,7 +60,7 @@
         "talle": [39, 42, 43],
         "color": "Blancas",
         "categoria": "Hombre",
-        "precio": 31.199
+        "precio": 31199
     },
     {
         "id": 8,
@@ -69,7 +69,7 @@
         "talle": [40, 42, 43],
         "color": "Celeste",
         "categoria": "Hombre",
-        "precio": 29.485
+        "precio": 29485
     },
     {
         "id": 9,
@@ -78,7 +78,7 @@
         "talle": [40, 42, 43],
         "color": "Blancas",
         "categoria": "Hombre",
-        "precio": 52.143
+        "precio": 52143
     },
     {
         "id": 10,
@@ -87,7 +87,7 @@
         "talle": [35, 36, 38],
         "color": "Rosa",
         "categoria": "Hombre",
-        "precio": 21.425
+        "precio": 21425
     },
     {
         "id": 11,
@@ -96,7 +96,7 @@
         "talle": [39, 40, 41],
         "color": "Blancas",
         "categoria": "Mujer",
-        "precio": 33.149
+        "precio": 33149
     },
     {
         "id": 12,
@@ -105,7 +105,7 @@
         "talle": [40, 42, 43],
         "color": "Azul",
         "categoria": "Hombre",
-        "precio": 32.189
+        "precio": 32189
     },
     {
         "id": 13,
@@ -114,7 +114,7 @@
         "talle": [41, 43, 44],
         "color": "Gris",
         "categoria": "Hombre",
-        "precio": 27.399
+        "precio": 27399
     },
     {
         "id": 14,
@@ -123,6 +123,6 @@
         "talle": [40, 42, 43],
         "color": "Verde",
         "categoria": "Hombre",
-        "precio": 21.414
+        "precio": 21414
     }
 ]

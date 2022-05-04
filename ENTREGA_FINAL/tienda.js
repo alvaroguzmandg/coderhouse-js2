@@ -78,7 +78,7 @@ const definirProductos = async() => {
         listadoProductos.codProducto = letraMarca + letraMarca2 + letraModelo + letraColor + letraCategoria;
     })
 
-    mostrarProductos(listadoProductos)
+    mostrarProductos(productosAZ())
     agregarAlCarrito(carroDeCompras)
     listadoCarrito()
 }
@@ -301,19 +301,19 @@ function mostrarProductos(grillaProductos) {
 
 
 //Función para Agregar productos al carrito
-function agregarAlCarrito(agregarProductos) {
+function agregarAlCarrito(listado) {
 
-    agregarProductos.forEach((agregarProductos) => {
+    listado.forEach((agregarProductos) => {
 
         let btnAgregar = document.getElementById(`btnCompra-${agregarProductos.id}`);
         btnAgregar.addEventListener("click", () => {
             let talleCompra = document.getElementById(`talles-${agregarProductos.codProducto}`).value;
             const { id, marca, modelo, color, codProducto, precio } = agregarProductos
+            // let talleCompra = document.getElementById(`talles-${agregarProductos.codProducto}`);
             let cantidad = 1;
             let codCompra = codProducto + talleCompra
             let imagen = marca.charAt(0) + modelo.charAt(0) + color.charAt(0);
             let idComprado = id;
-
             if (talleCompra == "Elegí tu talle") {
                 // alert("Por favor, elegí un talle")
                 Swal.fire({
@@ -388,12 +388,13 @@ btnCerrarSesion.onclick = () => {
 
 
 //PRECIO CARRITO
-precioCarrito = () => {
+function precioCarrito() {
     let precioAcumulado = 0;
     for (let i = 0; i < carroDeCompras.length; i++) {
         let precioProducto = carroDeCompras[i].precio * carroDeCompras[i].cantidad
         precioAcumulado += precioProducto
     }
+
     precioCarritoTotal = precioAcumulado
     localStorage.setItem("Precio Carrito", precioCarritoTotal);
 }
