@@ -153,6 +153,12 @@ h1 {
     flex-direction: column;
 }
 
+.accordion-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 @media only screen and (max-width:650px) {
     #filtros {
         width: 100%;
@@ -164,6 +170,10 @@ h1 {
     }
     .accordion-item {
         border: 0;
+    }
+    .accordion-body {
+        align-items: center;
+        gap: 10px;
     }
 }
 

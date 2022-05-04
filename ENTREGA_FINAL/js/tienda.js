@@ -1,10 +1,10 @@
+//Función constructora de productos
 class ListadoProductos {
     constructor(id, marca, modelo, talles, color, categoria, precio) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
         this.talle = talles;
-        // this.stock = stock;
         this.color = color;
         this.categoria = categoria;
         this.precio = precio;
@@ -22,7 +22,7 @@ class ListadoProductos {
 
 }
 
-// DECLARACIÓN DE ARRAYS
+//función constructora del carro de compras
 class CarroDeCompras {
     constructor(id, marca, modelo, talles, color, cantidad, codProducto, imagen, precio) {
         this.id = id;
@@ -42,29 +42,26 @@ class CarroDeCompras {
 
 
 
-
-
-
 //Creación de Array con carrito Almacenado
 let carroDeComprasAlmacenado = JSON.parse(localStorage.getItem('carritoAlmacenado'))
 
+
+/* -------------------- Declaración del array del carrito ------------------- */
+
 //Versión con operador ternario: Si la declaración del array con carrito Almacenado es nula, 
 //declara el carro de compras vacío y sino, crea el array de carro de compras concatenando el array de productos almacenados en el carrito
+
 // carroDeComprasAlmacenado === null ? carroDeCompras = [] : carroDeCompras = [].concat(carroDeComprasAlmacenado)
 
 //Versión con operador lógico OR de la declaración del array del carrito
-carroDeCompras = carroDeComprasAlmacenado || []
+let carroDeCompras = carroDeComprasAlmacenado || []
+
 
 //Variables que genera el contenedor de productos
 let contenidoProductos = document.getElementsByClassName("contenedorProductos");
 
 
-
-
-// DECLARACIÓN DE FUNCIONES
-
-
-//Función para traer productos
+//Función para traer productos de /productos.json
 const definirProductos = async() => {
     const resp = await fetch('productos.json')
     listadoProductos = await resp.json()
@@ -78,42 +75,60 @@ const definirProductos = async() => {
         listadoProductos.codProducto = letraMarca + letraMarca2 + letraModelo + letraColor + letraCategoria;
     })
 
+    //Se muestran los productos por orden alfabético
     mostrarProductos(productosAZ())
-    agregarAlCarrito(carroDeCompras)
-    listadoCarrito()
+
+    //Se agregan los productos del carro de compras al carrito y se muestran
+    listadoCarrito(agregarAlCarrito(carroDeCompras))
 }
 
-
+//Se ejecuta la función que muestra la grilla de productos
 definirProductos()
 
-
-
+/* ------------------------ CONTENIDO DEL ENCABEZADO ------------------------ */
 //Función que genera el contenido del encabezado
 function infoEncabezado(nombreUsuario) {
 
     let contenidoEncabezado = document.getElementsByClassName("datosUsuario")
 
+    //Creación bloque de nombre de usuario
     spanNombre = document.createElement('span');
     spanNombre.classList.add("nombreUsuario")
     spanNombre.innerHTML = `¡Hola ${nombreUsuario}!` + ` / <div id="btnCerrarUsuario">Cerrar Sesión</div>`;
 
+    //Se agrega el nombre del usuario
     contenidoEncabezado[0].appendChild(spanNombre);
 
 
+    //Creación del bloque de carrito
     divCarro = document.getElementsByClassName("datosCarro");
-
     divContenidoCarrito = document.createElement('span');
     divContenidoCarrito.classList.add("accesoCarrito")
 
     let contenidoCarrito = document.getElementsByClassName("contenedorCarrito")
     contenidoCarrito[0].appendChild(divContenidoCarrito)
+
+    //Se actualiza el contador del carrito
     actualizarContadorCarro();
 }
+//Se muestra contenido del encabezado
+infoEncabezado(nombreUsuario)
 
-//Función de cerrar sesión
-function cerrarSesion() {
-    localStorage.clear();
-    location.reload();
+/* ------------------------ FIN CONTENIDO DEL ENCABEZADO ------------------------ */
+
+
+/* -------------------- FUNCIONES DEL CARRITO DE COMPRAS -------------------- */
+//Función para generar el precio total de la compra
+function precioCarrito() {
+    let precioAcumulado = 0;
+    for (let i = 0; i < carroDeCompras.length; i++) {
+        let precioProducto = carroDeCompras[i].precio * carroDeCompras[i].cantidad
+        precioAcumulado += precioProducto
+    }
+
+    //Se agregan puntos al precio
+    precioCarritoTotal = new Intl.NumberFormat('es-ES').format(precioAcumulado);
+    localStorage.setItem("Precio Carrito", precioCarritoTotal);
 }
 
 
@@ -131,23 +146,28 @@ function listadoCarrito() {
         contenedor.innerHTML = " "
 
         htmlString = `
-        <span class="listadoCarrito">
-        <span class="listadoCarrito--titulo">LISTADO DE COMPRA</span>`
+            <span class="listadoCarrito">
+            <span class="listadoCarrito--titulo">LISTADO DE COMPRA</span>
+        `
 
-
+        //Se genera un bloque de producto por cada producto agregado al carrito
         for (let index = 0; index < carroDeCompras.length; index++) {
 
+            //Declaración de variables en función de los datos del producto
             let marca = carroDeCompras[index].marca;
             let modelo = carroDeCompras[index].modelo;
             let talle = carroDeCompras[index].talle;
+
+            //Se agregan puntos al precio
             let precio = new Intl.NumberFormat('es-ES').format(carroDeCompras[index].precio);
+
             let imagen = carroDeCompras[index].imagen;
             let id = carroDeCompras[index].id;
             let cantidad = carroDeCompras[index].cantidad;
-            // let codProducto = carroDeCompras[index].codProducto
 
             // String HTML de la vista del producto en el carrito
-            htmlString += `<li id="productoAgregado${id}">
+            htmlString += `
+                <li id="productoAgregado${id}">
                     <span class="carrito__productoTexto">
                         <span class="carrito__productoImagen"><img src="images/${imagen}.png"></span>
                         <span class="carrito__productoTexto--titulo">${marca} ${modelo}
@@ -160,15 +180,16 @@ function listadoCarrito() {
                         <br>
                         <span onclick="quitarProducto(${id})" class="carrito__productoTexto--quitar">Eliminar</span></span>
                     </span>
-                    
-                    </li>
-                    `
-            contenedor.innerHTML = htmlString + `
-            
-            <span id="precioCarrito">Total: $${precioCarritoTotal}</span>
-            <span class="btRun-med" id="finalizarCompra" onclick="avanzarCheckout()">FINALIZAR COMPRA</span>
-            <span id="vaciarCarrito">Vaciar Carrito</span></span>
+                </li>
             `
+
+            contenedor.innerHTML = htmlString + `
+                <span id="precioCarrito">Total: $${precioCarritoTotal}</span>
+                <span class="btRun-med" id="finalizarCompra" onclick="avanzarCheckout()">FINALIZAR COMPRA</span>
+                <span id="vaciarCarrito">Vaciar Carrito</span></span>
+            `
+
+            //Función de vaciar carrito
             const botonVaciar = document.getElementById("vaciarCarrito");
             botonVaciar.addEventListener("click", vaciarCarrito)
         }
@@ -213,16 +234,18 @@ botonCarrito.onmouseout = () => {
 //Función para quitar productos del carrito
 function quitarProducto(id) {;
 
-
     const item = carroDeCompras.find((prod) => prod.id === id)
     const indice = carroDeCompras.indexOf(item)
     carroDeCompras.splice(indice, 1)
 
+    // Actualiza carrito almacenado en localstorage
     localStorage.setItem("carritoAlmacenado", JSON.stringify(carroDeCompras));
+    //Actualiza carrito
     listadoCarrito();
-    //Se Actualiza el monto del carrito
+    //Actualiza el monto del carrito
     precioCarrito()
 
+    //Avisa que el producto fue eliminado
     Toastify({
         text: "¡Producto eliminado!",
         duration: 2000,
@@ -233,26 +256,35 @@ function quitarProducto(id) {;
 }
 
 
-
-
-
 //Función para actualizar el icono y el número de productos en el carrito
 function actualizarContadorCarro() {
     cantidad = 0;
+
+    //Actualiza el contador del carrito
     for (let i = 0; i < carroDeCompras.length; i++) {
         let suma = carroDeCompras[i].cantidad
         cantidad = cantidad + suma
     }
+
+    //Muestra el icono de carrito vacío
     let carritoVacio = () => {
         divContenidoCarrito.innerHTML = `<img class="iconoCarrito" src="images/carritoVacio.svg"> <span class="cantidadCarrito">${cantidad}</span>`;
     }
+
+    //Muestra el icono de carrito cargado
     let carritoCargado = () => {
         divContenidoCarrito.innerHTML = `<img class="iconoCarrito" src="images/carritoCargado.svg"> <span class="cantidadCarrito">${cantidad}</span>`;
     }
+
+    //Revisa el estado del carrito y actualiza el icono
     carroDeCompras.length == 0 ? carritoVacio() : carritoCargado()
 }
 
 
+/* --------------- FIN DE LAS FUNCIONES DEL CARRITO DE COMPRAS -------------- */
+
+
+/* --------------------------- GRILLA DE PRODUCTOS -------------------------- */
 //Función para mostrar los productos disponibles en el sitio
 function mostrarProductos(grillaProductos) {
     contenidoProductos[0].innerHTML = "";
@@ -281,14 +313,14 @@ function mostrarProductos(grillaProductos) {
             htmlString += `<option value="${valor}">${valor}</option>`
         }
 
-        htmlString += `</select>
+        htmlString += `
+            </select>
             <button id="btnCompra-${grillaProductos.id}" class="btnAgregar">AGREGAR</button>
             </span>
-            `
+        `
         htmlString += "</ul>"
         divProducto.innerHTML = htmlString
         contenidoProductos[0].append(divProducto);
-
 
 
 
@@ -302,7 +334,6 @@ function mostrarProductos(grillaProductos) {
 function agregarAlCarrito(agregarProductos) {
 
     agregarProductos.forEach((agregarProductos) => {
-
         let btnAgregar = document.getElementById(`btnCompra-${agregarProductos.id}`);
         let talleElegido = "Elegí tu talle";
         btnAgregar.addEventListener("click", () => {
@@ -313,30 +344,36 @@ function agregarAlCarrito(agregarProductos) {
             let codCompra = codProducto + talleElegido
             let imagen = marca.charAt(0) + modelo.charAt(0) + color.charAt(0);
             let idComprado = id;
-            if (talleElegido == "Elegí tu talle") {
-                // alert("Por favor, elegí un talle")
-                Swal.fire({
-                        title: '¡Atención!',
-                        text: 'Por favor, elegí un talle',
-                        icon: 'question',
-                        confirmButtonText: '¡Elegir!',
-                        color: '#FF5000',
-                        background: '#FF5500',
-                        backdrop: 'rgba(0, 0, 0, 0.8)',
-                        // ANIMACIÓN
-                        showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
-                        },
-                        hideClass: {
-                            popup: 'animate__animated animate__fadeOutUp'
-                        },
 
-                    })
-                    // .then((result) => {})
+            //Verifica si el talle fue elegido
+            //Si no fue elegido, tira una alerta y no deja avanzar
+            //Si el talle está seleccionado, procede en agregar al carrito
+            if (talleElegido == "Elegí tu talle") {
+                //Alerta que no se eligió el talle
+                Swal.fire({
+                    title: '¡Atención!',
+                    text: 'Por favor, elegí un talle',
+                    icon: 'question',
+                    confirmButtonText: '¡Elegir!',
+                    color: '#FF5000',
+                    background: '#FF5500',
+                    backdrop: 'rgba(0, 0, 0, 0.8)',
+                    // ANIMACIÓN
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    },
+
+                })
             } else {
 
+                //Verifica si el producto ya está en el carrito
                 const existe = carroDeCompras.some(carroDeCompras => carroDeCompras.codProducto === codCompra)
 
+                //En caso de estar suma cantidad
+                //En caso de no estar, lo suma como uno nuevo
                 if (existe) {
                     const producto = carroDeCompras.map(carroDeCompras => {
                         if (carroDeCompras.codProducto === codCompra) {
@@ -347,9 +384,10 @@ function agregarAlCarrito(agregarProductos) {
                     carroDeCompras.push(new CarroDeCompras(idComprado, marca, modelo, parseInt(talleElegido), color, cantidad, codCompra, imagen, precio));
                 }
 
-
+                // Almacen carrito en el localstorage
                 localStorage.setItem("carritoAlmacenado", JSON.stringify(carroDeCompras));
 
+                //Alerta de producto agregado al carrito
                 Toastify({
                     text: "¡Producto agregado al carrito!",
                     duration: 3000,
@@ -358,7 +396,6 @@ function agregarAlCarrito(agregarProductos) {
                         background: "#FF5500",
                     }
                 }).showToast();
-
 
                 //Se actualizado el listado de productos en el carrito
                 listadoCarrito();
@@ -373,72 +410,8 @@ function agregarAlCarrito(agregarProductos) {
 
 }
 
-
-infoEncabezado(nombreUsuario)
-
-
-
-
-//CREAR SESIÓN
+//FUNCIÓN DE CREAR SESIÓN
 let btnCerrarSesion = document.getElementById("btnCerrarUsuario")
 btnCerrarSesion.onclick = () => {
     window.location.replace("index.html");
 }
-
-
-//PRECIO CARRITO
-function precioCarrito() {
-    let precioAcumulado = 0;
-    for (let i = 0; i < carroDeCompras.length; i++) {
-        let precioProducto = carroDeCompras[i].precio * carroDeCompras[i].cantidad
-        precioAcumulado += precioProducto
-    }
-
-    precioCarritoTotal = new Intl.NumberFormat('es-ES').format(precioAcumulado);
-    localStorage.setItem("Precio Carrito", precioCarritoTotal);
-}
-
-
-
-
-/* --------------------------------- Filtros -------------------------------- */
-
-//Función Orden alfabetico
-function ordenarAlfabetico(x, y) {
-    if (x.marca < y.marca) { return -1; }
-    if (x.marca > y.marca) { return 1; }
-    return 0;
-}
-let productosAZ = () => listadoProductos.sort(ordenarAlfabetico);
-
-
-//Filtros de categoria
-const categoriaHombre = () => listadoProductos.filter(listadoProductos => listadoProductos.categoria === "Hombre");
-
-
-
-const categoriaMujer = () => listadoProductos.filter(listadoProductos => listadoProductos.categoria === "Mujer");
-
-//Filtro de marca
-const productosAdidas = () => listadoProductos.filter(listadoProductos => listadoProductos.marca === "Adidas");
-const productosAsics = () => listadoProductos.filter(listadoProductos => listadoProductos.marca === "Asics");
-const productosNewBalance = () => listadoProductos.filter(listadoProductos => listadoProductos.marca === "New Balance");
-const productosNike = () => listadoProductos.filter(listadoProductos => listadoProductos.marca === "Nike");
-const productosSaucony = () => listadoProductos.filter(listadoProductos => listadoProductos.marca === "Saucony");
-
-
-//Función Orden precio
-function ordenPrecioMenorMayor(x, y) {
-    if (x.precio < y.precio) { return -1; }
-    if (x.precio > y.precio) { return 1; }
-    return 0;
-}
-let productosPrecioMenorMayor = () => listadoProductos.sort(ordenPrecioMenorMayor);
-
-
-function ordenPrecioMayorMenor(x, y) {
-    if (x.precio > y.precio) { return -1; }
-    if (x.precio < y.precio) { return 1; }
-    return 0;
-}
-let productosPrecioMayorMenor = () => listadoProductos.sort(ordenPrecioMayorMenor);

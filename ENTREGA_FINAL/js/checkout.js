@@ -1,10 +1,11 @@
 //Creación de Array con carrito Almacenado
 let carroDeComprasAlmacenado = JSON.parse(localStorage.getItem('carritoAlmacenado'))
 
-//Versión con operador lógico OR de la declaración del array del carrito
+//Declaración del array del carrito
 carroDeCompras = carroDeComprasAlmacenado || []
 
-//validamos que el carrito no esté vacío
+//Validamos que el carrito no esté vacío
+//Si está vacío se redirige al cliente a la tienda
 carroDeCompras.length == 0 && window.location.replace("tienda.html");
 
 
@@ -21,12 +22,13 @@ function cargarDatosUsuario() {
     datosUsuario.formaPago = localStorage.getItem("formaPago")
     datosUsuario.metodoEnvio = localStorage.getItem("metodoEnvio")
 }
-
 cargarDatosUsuario()
+
+
 
 /*------------------------------- PRODUCTOS COMPRADOS -------------------------------*/
 
-function listadoCarrito() {
+function listadoDeCompra() {
 
     //Revisa productos Almacenados en LocalStorage y las carga al Carrito
     if (localStorage.getItem('carritoAlmacenado') != null) {
@@ -38,7 +40,7 @@ function listadoCarrito() {
         <span class="listadoCarrito">
         <span class="tituloCheckout listadoCarrito--titulo">LISTADO DE COMPRA</span>`
 
-
+        //Recorremos el carro de compras y creamos un bloque de producto por cada uno que esté en el carrito
         for (let index = 0; index < carroDeCompras.length; index++) {
 
             let marca = carroDeCompras[index].marca;
@@ -48,34 +50,29 @@ function listadoCarrito() {
             let imagen = carroDeCompras[index].imagen;
             let id = carroDeCompras[index].id;
             let cantidad = carroDeCompras[index].cantidad;
-            // let codProducto = carroDeCompras[index].codProducto
 
             // String HTML de la vista del producto en el carrito
-            htmlString += `<li class="productosComprados">
-            <span class="listadoProductosCheckout--bloque">
-                <span class="listadoProductosCheckout imagen"><img src="images/${imagen}.png"></span>
-                <span class="infoProducto">
-                    <span class="listadoProductosCheckout titulo">${marca} ${modelo}</span>
-                    <span class="listadoProductosCheckout talle">Talle: ${talle}</span>
-                    <span class="listadoProductosCheckout cantidad">Cantidad: ${cantidad}</span>
+            htmlString += `
+                <li class="productosComprados">
+                <span class="listadoProductosCheckout--bloque">
+                    <span class="listadoProductosCheckout imagen"><img src="images/${imagen}.png"></span>
+                    <span class="infoProducto">
+                        <span class="listadoProductosCheckout titulo">${marca} ${modelo}</span>
+                        <span class="listadoProductosCheckout talle">Talle: ${talle}</span>
+                        <span class="listadoProductosCheckout cantidad">Cantidad: ${cantidad}</span>
+                    </span>
                 </span>
-            </span>
-            </li>
-                    `
-            listadoCheckout.innerHTML = htmlString + `
-            
-            <span id="precioCarrito">Total: $${precioCarritoTotal}</span>
-
+                </li>
             `
-
+            listadoCheckout.innerHTML = htmlString + `
+                <span id="precioCarrito">Total: $${precioCarritoTotal}</span>
+            `
         }
-
     }
 }
 
-listadoCarrito()
-
-
+//Listamos el carro de compras
+listadoDeCompra()
 
 
 /*------------------------------- FORMULARIO -------------------------------*/
@@ -102,10 +99,7 @@ function pagoEfectivo() {
     boton2.classList.remove("selectorActive");
     let formaPago = "Efectivo";
     localStorage.setItem("formaPago", formaPago);
-    // legal = document.getElementsByClassName("legalCheckout")
-    // legal[1].style.display = 'block';
 
-    let box = document.getElementById("metodoPago");
     let legal = document.getElementById("legalPago");
     legal.classList.add("legalCheckout");
     legal.innerHTML = '';
@@ -129,9 +123,11 @@ function pagoTarjeta() {
 }
 
 
-
+//Función que finaliza la compra
 function finalizarCompra() {
     let local = document.getElementById("local").value
+
+    //Función para revisar que esté seleccionado el método de envío
     let alertaLocal = () => {
         Swal.fire({
             title: '¡Atención!',
@@ -148,15 +144,15 @@ function finalizarCompra() {
             hideClass: {
                 popup: 'animate__animated animate__fadeOutUp'
             },
-
         })
-
     }
+
+    //Se valida si el método de envío está seleccionado
     if (local == 0) {
         alertaLocal()
     } else {
 
-
+        //Cambio de valor de sucursal seleccionada
         switch (local) {
             case '0':
                 local = "Local no seleccionado"
@@ -172,6 +168,7 @@ function finalizarCompra() {
             default:
         }
 
+        //Asignación de variables de datos ingresados
         let email = document.getElementById("email").value
         let nombre = document.getElementById("nombre").value
         let dni = document.getElementById("dni").value
@@ -179,7 +176,10 @@ function finalizarCompra() {
         let formaEnvio = localStorage.getItem("metodoEnvio")
         let formaPago = localStorage.getItem("formaPago")
 
+        //Verificación de datos ingresados
         if (email != undefined && nombre != undefined && dni != undefined && telefono != undefined && formaEnvio != undefined && formaPago != undefined && carroDeCompras.length > 0) {
+
+            //Guardar datos ingresados en el local storage
             localStorage.setItem("email", email);
             localStorage.setItem("nombre", nombre);
             localStorage.setItem("dni", dni);
@@ -188,12 +188,16 @@ function finalizarCompra() {
 
             //Mostramos página de confirmación
             mostrarCheckout();
+
+            //Seteamos el listado de productos ya comprados
             let productosComprados = carroDeCompras
             localStorage.setItem("productosComprados", JSON.stringify(productosComprados));
+
             // Vaciamos el carrito
             carroDeCompras = []
             localStorage.setItem("carritoAlmacenado", JSON.stringify(carroDeCompras));
         } else {
+            //Avisa que los datos no están completos
             Swal.fire({
                 title: '¡Atención!',
                 text: 'Por favor revisá los datos ingresados',
@@ -209,107 +213,7 @@ function finalizarCompra() {
                 hideClass: {
                     popup: 'animate__animated animate__fadeOutUp'
                 },
-
             })
         }
     }
-}
-
-
-
-function crearBotonVolver() {
-    let botonVolver = document.createElement("div");
-    botonVolver.innerHTML = `
-    <div class="btRunDestacado-large" id="botonVolver" onclick="volverSitio()">volver a la tienda</div>
-    <span class="legalVolverSitio">SERÁS REDIRECCIONADO A LA TIENDA EN 120 SEGUNDOS</span>
-    `;
-
-    let main = document.getElementsByTagName("main")
-    main[0].append(botonVolver)
-
-    setTimeout(volverSitio, 120000)
-}
-
-function volverSitio() {
-    window.location.replace("tienda.html");
-}
-
-function mostrarCheckout() {
-    let checkout = document.getElementById("contenedorTienda");
-    let titulo = document.getElementById("tituloCheckout");
-    titulo.innerHTML = 'RESUMEN DE <span class="destacadoClub">TU COMPRA';
-
-
-    // let productosComprados = JSON.parse(localStorage.getItem('productosComprados'))
-    let precioCompra = localStorage.getItem('Precio Carrito')
-
-
-    function numeroDeCompra(minimo, maximo) {
-        return Math.round(Math.random() * (maximo - minimo) + minimo);
-    }
-    let numeroCompra = numeroDeCompra(0, 200)
-    let numeroCompraContenedor = document.createElement("div")
-    numeroCompraContenedor.classList.add("numeroCompra");
-    numeroCompraContenedor.innerHTML = `<h2>CÓDIGO DE RETIRO: <span class="destacadoClub">#${numeroCompra}</span></h2>`
-    checkout.innerHTML = ``;
-    titulo.append(numeroCompraContenedor)
-
-
-    let datosCompra = document.createElement("div")
-    datosCompra.classList.add("datosDeCompra")
-    datosCompra.classList.add("bloqueContenido--lg");
-
-    let contenedorProductos = document.createElement("div")
-    contenedorProductos.classList.add("listadoProductosComprados")
-
-    contenedorProductos.innerHTML = " "
-
-    htmlString = ``
-
-    datosUsuario = []
-    cargarDatosUsuario()
-
-    datosCompra.innerHTML = `
-    <div class="informacionComprador">
-    <span class="tituloProductos">Datos del comprador</span>
-        <span class="tituloDato">Nombre:</span>
-        <span class="textoDato">${datosUsuario.nombre}</span>
-        <span class="tituloDato">Correo Electrónico:</span>
-        <span class="textoDato">${datosUsuario.correo}</span>
-        <span class="tituloDato">Teléfono: </span>
-        <span class="textoDato">${datosUsuario.telefono}</span>
-        <span class="tituloDato">Método de Envío:</span>
-        <span class="textoDato">${datosUsuario.metodoEnvio}</span>
-        <span class="tituloDato">Método de pago:</span>
-        <span class="textoDato">${datosUsuario.formaPago}</span>
-        <span class="tituloDato precio">Total: <span class="textoDato precio">$${precioCompra}</span></span>
-        
-    </div>`
-    htmlString = `<span class="tituloProductos">Productos comprados</span>`;
-    for (let index = 0; index < carroDeCompras.length; index++) {
-
-        let marca = carroDeCompras[index].marca;
-        let modelo = carroDeCompras[index].modelo;
-        let talle = carroDeCompras[index].talle;
-        let imagen = carroDeCompras[index].imagen;
-        let cantidad = carroDeCompras[index].cantidad;
-        // let codProducto = carroDeCompras[index].codProducto
-        // String HTML de la vista del producto en el carrito
-        htmlString += `<li class="productosComprados">
-                <span class="listadoProductosComprados--bloque">
-                    <span class="productoComprado__producto imagen"><img src="images/${imagen}.png"></span>
-                    <span class="infoProducto">
-                        <span class="productoComprado__producto titulo">${marca} ${modelo}</span>
-                        <span class="productoComprado__producto talle">Talle: ${talle}</span>
-                        <span class="productoComprado__producto cantidad">Cantidad: ${cantidad}</span>
-                    </span>
-                </span>
-                </li>
-                `
-    }
-    contenedorProductos.innerHTML = htmlString;
-    checkout.appendChild(datosCompra);
-    datosCompra.appendChild(contenedorProductos);
-
-    crearBotonVolver()
 }
